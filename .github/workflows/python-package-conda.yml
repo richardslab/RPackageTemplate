@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  testStepsAndLint:
+  build-environment:
     name: Build Environment using Mamba
     runs-on: "ubuntu-latest"
     defaults:
@@ -27,6 +27,14 @@ jobs:
       # - name: post-conda-steps
       #   run: |
       #     installation/post_conda_steps.sh 
+  test-environment:
+    needs: build-environment
+    name: Test Environment
+    runs-on: "ubuntu-latest"
+    defaults:
+      run:
+        shell: bash -l {0}
+    steps:
       - name: Conda info
         run: |
           conda info --envs
@@ -38,3 +46,4 @@ jobs:
         run: |
           conda activate Template
           R -e 'library(plyr); library(ggplot2);'
+      
