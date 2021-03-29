@@ -1,38 +1,18 @@
-# ref https://github.com/tebeka/pythonwise/blob/master/docker-miniconda/Dockerfile
-FROM ubuntu:18.04
-WORKDIR /home/
-# System packages 
-RUN apt-get -qq update && apt-get -qq install -y curl 
-
-ENV TZ=America/New_York
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
-RUN apt-get -qq update && apt-get -qq install -y libcairo2-dev ghostscript less 
-
-# Install miniconda to /miniconda
-RUN curl -LO http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-RUN bash Miniconda3-latest-Linux-x86_64.sh -p /miniconda -b
-RUN rm Miniconda3-latest-Linux-x86_64.sh
-ENV PATH=/miniconda/bin:${PATH}
-RUN conda update -y conda
+FROM continuumio/miniconda3
 
 WORKDIR /app
 
-# Make RUN commands use `bash --login`:
-SHELL ["/bin/bash", "--login", "-c"]
+# Create the environment:
+COPY environment.yml .
+RUN conda env create -f environment.yml
 
-COPY create_env.sh environment.yaml /app/
-RUN ./create_env.sh
+# Make RUN commands use the new environment:
+SHELL ["conda", "run", "-n", "myenv", "/bin/bash", "-c"]
 
-RUN conda init bash
-RUN echo "conda activate Template" >> ~/.bashrc
+# Make sure the environment is activated:
+RUN echo "Make sure flask is installed:"
+RUN python -c "import flask"
 
-RUN conda init
-RUN conda env export -n Template > /app/linux_env.yml
-
-
-COPY Dockerfile /app/
-COPY entrypoint.sh /usr/local/bin/
-#ENTRYPOINT ["conda", "run", "-n", "Template", "--no-capture-output", "/bin/bash", "-c"]
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-CMD ["/bin/bash"]
+# The code to run when container is started:
+COPY run.py .
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "myenv", "python", "run.py"]
