@@ -1,4 +1,4 @@
 #!/bin/bash
 echo "in run.sh"
-echo "arguments are: $@"
+echo "arguments are: " "$@"
 exec "$@"
