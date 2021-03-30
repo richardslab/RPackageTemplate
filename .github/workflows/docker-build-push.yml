@@ -118,37 +118,31 @@ jobs:
 
       - name: Show space available
         run: df -h .
-      -
+      - name: show env
+        run: env
+      - 
         name: test running in docker
+        shell: /usr/local/bin/run.sh
         run: conda info
   test_r_png:
     needs: [variables,build_docker]
     runs-on: ubuntu-latest
+    container: ${{ needs.variables.tags.env.branch_tag }} 
     steps:
       -
         name: Show space available
         run: df -h .
       -
         name: run docker test png
-        uses: addnab/docker-run-action@v3
-        with:
-          image: ${{ needs.variables.tags.env.branch_tag }}  
-          shell: /usr/local/bin/entrypoint.sh
-          run: Rscript -e 'png()' 
+        run: Rscript -e 'png()' 
   test_r_2SMR:
     needs: [variables,build_docker]
     runs-on: ubuntu-latest
+    container: ${{ needs.variables.tags.env.branch_tag }} 
     steps:
       -
-        name: Show space available
-        run: df -h .          
-      -
         name: run docker test two-sample-mr
-        uses: addnab/docker-run-action@v3
-        with:
-          image: ${{ needs.variables.tags.env.branch_tag }} 
-          shell: /usr/local/bin/entrypoint.sh
-          run: Rscript -e 'library(ggplot2)'
+        run: Rscript -e 'library(ggplot2)'
 
 
 
