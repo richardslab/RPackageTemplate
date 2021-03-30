@@ -1,0 +1,10 @@
+Package: RPackageTemplate
+Version: 0.0.0.1
+Date: 2021-03-10
+Title: An R package Template
+Authors@R: c(person("Yossi", "Farjoun", role = c("aut", "cre"),
+                     email = "farjoun@gmail.com"))
+Depends: R (>= 3.6.3)
+Depends_backup: R (>= 3.6.3), dplyr
+Description: This is a template R Package.
+License: GPL (>= 2)
