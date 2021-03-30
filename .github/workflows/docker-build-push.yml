@@ -152,9 +152,11 @@ jobs:
         run: echo "::set-output name=value::docker://${{needs.variables.tags.env.branch_tag}}"
       -
         name: test_null
-        uses: ${{ steps.image.outputs.value }}
+        uses: ${{env.image}}
         with:
           args: conda info
+        env: 
+          image: ${{ steps.image.outputs.value }}
       -
         name: test0
         uses: docker://richardslab/template_r_project:latest
