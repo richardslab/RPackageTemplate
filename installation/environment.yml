@@ -11,4 +11,7 @@ dependencies:
   - python>=3.6
   - tabix
   - gfortran_linux-64=7.3
+  - r-base>=3.6.1
+  - r-ggplot2>=3
+  - r-plyr
   
