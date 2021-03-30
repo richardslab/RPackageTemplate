@@ -149,14 +149,15 @@ jobs:
     steps:
       - name: get-image
         id: image
-        run: echo "::set-output name=value::docker://${{needs.variables.tags.env.branch_tag}}"
+        run: docker pull ${{needs.variables.tags.env.branch_tag}}"
+      - name: tag image
+        run: docker tag ${{needs.variables.tags.env.branch_tag}} test:latest 
+
       -
         name: test_null
-        uses: ${{env.image}}
+        uses: test:latest
         with:
           args: conda info
-        env: 
-          image: ${{ steps.image.outputs.value }}
       -
         name: test0
         uses: docker://richardslab/template_r_project:latest
