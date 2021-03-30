@@ -107,11 +107,10 @@ jobs:
           cache-to: type=local,dest=/tmp/.buildx-cache
   test_conda_info:
     needs: [variables,build_docker]
-    runs-on: ubuntu-latest
+    container: ${{ needs.variables.tags.env.branch_tag }} 
     steps:
       - 
         name: hello world
-        shell: bash
         run: |
           echo "first line"
           echo "second line"
@@ -120,11 +119,7 @@ jobs:
         run: df -h .
       -
         name: test running in docker
-        uses: addnab/docker-run-action@v3
-        with:
-          image: ${{ needs.variables.tags.env.branch_tag }} 
-          shell: /usr/local/bin/entrypoint.sh
-          run: conda info
+        run: conda info
   test_r_png:
     needs: [variables,build_docker]
     runs-on: ubuntu-latest
