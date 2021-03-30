@@ -1,18 +1,60 @@
-FROM continuumio/miniconda3
+# ref https://github.com/tebeka/pythonwise/blob/master/docker-miniconda/Dockerfile
+FROM ubuntu:18.04
+WORKDIR /home/
+# System packages 
+RUN apt-get -qq update && apt-get -qq install -y curl 
+
+ENV TZ=America/New_York
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+RUN apt-get -qq update && apt-get -qq install -y libcairo2-dev ghostscript less 
+
+# Install miniconda to /miniconda
+RUN curl -LO http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+RUN bash Miniconda3-latest-Linux-x86_64.sh -p /miniconda -b
+RUN rm Miniconda3-latest-Linux-x86_64.sh
+ENV PATH=/miniconda/bin:${PATH}
+RUN conda update -y conda
 
 WORKDIR /app
 
-# Create the environment:
-COPY environment.yml .
-RUN conda env create -f environment.yml
+# Make RUN commands use `bash --login`:
+# SHELL ["/bin/bash", "--login", "-c"]
 
-# Make RUN commands use the new environment:
-SHELL ["conda", "run", "-n", "myenv", "/bin/bash", "-c"]
+COPY create_env.sh environment.yaml /app/
+RUN ./create_env.sh
 
-# Make sure the environment is activated:
-RUN echo "Make sure flask is installed:"
-RUN python -c "import flask"
+# RUN conda init bash
+# RUN echo "conda activate Template" >> ~/.bashrc
 
-# The code to run when container is started:
-COPY run.py .
-ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "myenv", "python", "run.py"]
+# RUN conda init
+# RUN conda env export -n Template > /app/linux_env.yml
+
+
+COPY Dockerfile /app/
+COPY entrypoint.sh /usr/local/bin/
+ENTRYPOINT ["conda", "run", "-n", "Template", "--no-capture-output", "entrypoint.sh"]
+# ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["echo", "need to provide a command..."]
+
+# FROM continuumio/miniconda3
+
+# WORKDIR /app
+
+# # Create the environment:
+# COPY environment.yml .
+# RUN conda env create -f environment.yml
+
+# # # Make RUN commands use the new environment:
+# # SHELL ["conda", "run", "-n", "myenv", "/bin/bash", "-c"]
+
+# # # Make sure the environment is activated:
+# # RUN echo "Make sure flask is installed:"
+# # RUN python -c "import flask"
+
+# # The code to run when container is started:
+# COPY run.py .
+# ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "myenv", "/bin/bash", "-c"]
+
+
+

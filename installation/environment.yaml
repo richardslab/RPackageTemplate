@@ -1,7 +1,14 @@
 
-name: Template
+name: VitaminD_MR
 channels:
+  - r
   - conda-forge
+  - bioconda
+  - defaults
+  - anaconda
+
 dependencies:
-  - python=3.8
-  - flask
+  - python>=3.6
+  - tabix
+  - gfortran_linux-64=7.3
+  
