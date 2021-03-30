@@ -116,7 +116,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: ${{ needs.variables.tags.env.branch_tag }} 
-          run: "'conda info'"
+          run: conda info
   test_r_png:
     needs: [variables,build_docker]
     runs-on: ubuntu-latest
@@ -129,7 +129,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: ${{ needs.variables.tags.env.branch_tag }}  
-          run: "Rscript -e 'png()' "
+          run: Rscript -e 'png()' 
   test_r_2SMR:
     needs: [variables,build_docker]
     runs-on: ubuntu-latest
@@ -143,7 +143,7 @@ jobs:
         with:
           image: ${{ needs.variables.tags.env.branch_tag }} 
           shell: /bin/bash
-          run: "Rscript -e 'library(ggplot2)'"
+          run: Rscript -e 'library(ggplot2)'
 
 
 
