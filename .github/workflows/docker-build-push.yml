@@ -149,17 +149,17 @@ jobs:
       -
         name: test0
         uses: docker://richardslab/template_r_project:latest
-      -
-        name: test1
-        uses: docker://${{ needs.variables.tags.env.branch_tag }} 
-        with:
-          args: conda info
-      -
-        name: test2
-        uses: docker://${{ needs.variables.tags.env.branch_tag }} 
-        with:
-          entrypoint: /usr/local/bin/entrypoint.sh
-          args: conda info
+      # -
+      #   name: test1
+      #   uses: docker://${{ needs.variables.tags.env.branch_tag }} 
+      #   with:
+      #     args: conda info
+      # -
+      #   name: test2
+      #   uses: docker://${{ needs.variables.tags.env.branch_tag }} 
+      #   with:
+      #     entrypoint: /usr/local/bin/entrypoint.sh
+      #     args: conda info
 
 
 
