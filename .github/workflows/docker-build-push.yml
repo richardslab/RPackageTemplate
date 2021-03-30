@@ -109,6 +109,13 @@ jobs:
     needs: [variables,build_docker]
     runs-on: ubuntu-latest
     steps:
+      - 
+        name: hello world
+        shell: bash
+        run: |
+          echo "first line"
+          echo "second line"
+
       - name: Show space available
         run: df -h .
       -
@@ -116,6 +123,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: ${{ needs.variables.tags.env.branch_tag }} 
+          shell: /usr/local/bin/entrypoint.sh
           run: conda info
   test_r_png:
     needs: [variables,build_docker]
@@ -129,6 +137,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: ${{ needs.variables.tags.env.branch_tag }}  
+          shell: /usr/local/bin/entrypoint.sh
           run: Rscript -e 'png()' 
   test_r_2SMR:
     needs: [variables,build_docker]
@@ -142,7 +151,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: ${{ needs.variables.tags.env.branch_tag }} 
-          shell: /bin/bash
+          shell: /usr/local/bin/entrypoint.sh
           run: Rscript -e 'library(ggplot2)'
 
 

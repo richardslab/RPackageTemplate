@@ -21,7 +21,7 @@ WORKDIR /app
 # Make RUN commands use `bash --login`:
 # SHELL ["/bin/bash", "--login", "-c"]
 
-COPY create_env.sh environment.yaml /app/
+COPY create_env.sh environment.yml /app/
 RUN ./create_env.sh
 
 # RUN conda init bash
@@ -32,29 +32,9 @@ RUN ./create_env.sh
 
 
 COPY Dockerfile /app/
-COPY entrypoint.sh /usr/local/bin/
-ENTRYPOINT ["conda", "run", "-n", "Template", "--no-capture-output", "entrypoint.sh"]
-# ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+COPY entrypoint.sh run.sh /usr/local/bin/
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
 CMD ["echo", "need to provide a command..."]
-
-# FROM continuumio/miniconda3
-
-# WORKDIR /app
-
-# # Create the environment:
-# COPY environment.yml .
-# RUN conda env create -f environment.yml
-
-# # # Make RUN commands use the new environment:
-# # SHELL ["conda", "run", "-n", "myenv", "/bin/bash", "-c"]
-
-# # # Make sure the environment is activated:
-# # RUN echo "Make sure flask is installed:"
-# # RUN python -c "import flask"
-
-# # The code to run when container is started:
-# COPY run.py .
-# ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "myenv", "/bin/bash", "-c"]
-
-
 
