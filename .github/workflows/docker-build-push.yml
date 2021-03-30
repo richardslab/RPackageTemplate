@@ -148,7 +148,7 @@ jobs:
     steps:
       -
         name: test0
-        uses: docker://${{ needs.variables.tags.env.branch_tag }} 
+        uses: docker://richardslab/template_r_project:latest
       -
         name: test1
         uses: docker://${{ needs.variables.tags.env.branch_tag }} 
