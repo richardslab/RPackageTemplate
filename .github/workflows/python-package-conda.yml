@@ -16,17 +16,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - 
-        name: create-env
-        run: installation/create_env.sh
-      # - uses: conda-incubator/setup-miniconda@v2
-      #   with:
-      #     python-version: 3.6
-      #     activate-environment: Template
-      #     mamba-version: "*"
-      #     channels: conda-forge,r,bioconda,defaults,anaconda
-      #     channel-priority: true
-      #     environment-file: installation/environment.yml
+      # - 
+      #   name: create-env
+      #   run: installation/create_env.sh
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          python-version: 3.6
+          activate-environment: Template
+          mamba-version: "*"
+          channels: conda-forge,r,bioconda,defaults,anaconda
+          channel-priority: true
+          environment-file: installation/environment.yml
       # - name: post-conda-steps
       #   run: |
       #     installation/post_conda_steps.sh 

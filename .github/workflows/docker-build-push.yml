@@ -120,8 +120,9 @@ jobs:
         run: df -h .
       - name: show env
         run: env
-      - 
-        name: test running in docker
+      - name: conda
+        run: conda env list
+      - name: test running in docker
         run: /usr/local/bin/run.sh
   test_r_png:
     needs: [variables,build_docker]
@@ -149,17 +150,25 @@ jobs:
       -
         name: test0
         uses: docker://richardslab/template_r_project:latest
-      # -
-      #   name: test1
-      #   uses: docker://${{ needs.variables.tags.env.branch_tag }} 
-      #   with:
-      #     args: conda info
-      # -
-      #   name: test2
-      #   uses: docker://${{ needs.variables.tags.env.branch_tag }} 
-      #   with:
-      #     entrypoint: /usr/local/bin/entrypoint.sh
-      #     args: conda info
+      -
+        name: test1
+        uses: docker://richardslab/template_r_project:latest
+        with:
+          args: conda info
+      -
+        name: test2
+        uses: docker://richardslab/template_r_project:latest
+        with:
+          entrypoint: /usr/local/bin/entrypoint.sh
+          args: conda info
+      -
+        name: test3
+        uses: docker://richardslab/template_r_project:latest
+        with:
+          args: 
+            - R 
+            - '-e' 
+            - 'library(ggplot2); library(dplyr);'
 
 
 
