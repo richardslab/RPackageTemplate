@@ -30,36 +30,10 @@ jobs:
       # - name: post-conda-steps
       #   run: |
       #     installation/post_conda_steps.sh 
-  test-manual-init:
-    needs: [build-environment]
-    name: Test conda with manual initialize
-    runs-on: ubuntu-latest
-    steps:
       -
-        name: initialize
-        run: |
-          ENV=base
-          set +eu \
-            && PS1=dummy \
-            && . $(conda info --base)/etc/profile.d/conda.sh \
-            && conda activate ${ENV};
-          set -eu;
-          conda info
-          conda env list
-      -
-        name: info
+        name: conda info
         run: conda info
-  test-environment:
-    needs: [build-environment]
-    name: Test Environment
-    runs-on: "ubuntu-latest"
-    defaults:
-      run:
-        shell: bash -l {0}
-    steps:
-      - name: Conda init
-        run: conda init
-      - name: Conda info
+      - name: More conda info
         run: |
           conda info --envs
           conda list -n Template
