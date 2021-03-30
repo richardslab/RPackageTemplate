@@ -28,7 +28,7 @@ jobs:
       #   run: |
       #     installation/post_conda_steps.sh 
   test-environment:
-    needs: build-environment
+    needs: [build-environment]
     name: Test Environment
     runs-on: "ubuntu-latest"
     defaults:
@@ -45,5 +45,5 @@ jobs:
       - name: test-r-libraries
         run: |
           conda activate Template
-          R -e 'library(plyr); library(ggplot2);'
-      
+          R -e 'library(dplyr); library(ggplot2);'
+
