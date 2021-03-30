@@ -43,5 +43,7 @@ jobs:
       - name: test-r-libraries
         run: |
           conda activate Template
-          R -e 'library(dplyr); library(ggplot2);'
+          conda list
+          conda info 
+          R -e 'library(ggplot2);'
 

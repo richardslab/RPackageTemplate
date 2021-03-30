@@ -151,6 +151,16 @@ jobs:
         name: test0
         uses: docker://richardslab/template_r_project:latest
       -
+        name: test0
+        uses: docker://richardslab/template_r_project:latest
+        with:
+          args: conda info
+      -
+        name: test0
+        uses: docker://richardslab/template_r_project:latest
+        with:
+          args: conda list
+      -
         name: test1
         uses: docker://richardslab/template_r_project:latest
         with:
