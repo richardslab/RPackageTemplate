@@ -23,7 +23,7 @@ jobs:
           mamba-version: "*"
           channels: conda-forge,r,bioconda,defaults,anaconda
           channel-priority: true
-          environment-file: installation/environment.yaml
+          environment-file: installation/environment.yml
       # - name: post-conda-steps
       #   run: |
       #     installation/post_conda_steps.sh 
