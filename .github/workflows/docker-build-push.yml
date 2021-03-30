@@ -123,9 +123,6 @@ jobs:
       - 
         name: test running in docker
         run: /usr/local/bin/run.sh
-        args:
-          - conda 
-          - info
   test_r_png:
     needs: [variables,build_docker]
     runs-on: ubuntu-latest
