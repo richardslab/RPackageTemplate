@@ -38,12 +38,14 @@ jobs:
       -
         name: initialize
         run: |
-          ENV=Template
+          ENV=base
           set +eu \
             && PS1=dummy \
             && . $(conda info --base)/etc/profile.d/conda.sh \
             && conda activate ${ENV};
           set -eu;
+          conda info
+          conda env list
       -
         name: info
         run: conda info
