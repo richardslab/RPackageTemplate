@@ -47,7 +47,6 @@ jobs:
       -
         name: info
         run: conda info
-        
   test-environment:
     needs: [build-environment]
     name: Test Environment
@@ -56,7 +55,8 @@ jobs:
       run:
         shell: bash -l {0}
     steps:
-      - name: Conda info
+      - name: Conda init
+        run: conda init
       - name: Conda info
         run: |
           conda info --envs
