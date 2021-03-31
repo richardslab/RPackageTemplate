@@ -106,7 +106,7 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
   test_conda_with_farjoun_action:
-    needs: needs: [variables,build_docker]
+    needs: [variables,build_docker]
     steps:
       -
         uses: yfarjoun/docker-run-action
