@@ -122,7 +122,7 @@ jobs:
       -
         uses: yfarjoun/docker-run-action@main
         with:
-          image: "richardslab/template_r_project:latest"
+          image: richardslab/template_r_project:latest
           run: conda env list
           shell: ""
   test_conda_with_farjoun_action_branch:
@@ -132,7 +132,7 @@ jobs:
       -
         uses: yfarjoun/docker-run-action@main
         with:
-          image: "${{ needs.variables.tags.env.branch_tag }}"
+          image: ${{ needs.variables.outputs.branch_tag }}
           run: conda env list
           shell: ""
   test_conda_info_with_farjoun_action:
@@ -142,7 +142,7 @@ jobs:
       -
         uses: yfarjoun/docker-run-action@main
         with:
-          image: "${{ needs.variables.tags.env.branch_tag }}"
+          image: "${{ needs.variables.outputs.branch_tag }}"
           run: |
             echo "first line"
             echo "second line"
@@ -151,7 +151,7 @@ jobs:
   test_r_png:
     needs: [variables,build_docker]
     runs-on: ubuntu-latest
-    container: ${{ needs.variables.tags.env.branch_tag }} 
+    container: ${{ needs.variables.outputs.branch_tag }} 
     steps:
       -
         name: Show space available
@@ -162,43 +162,12 @@ jobs:
   test_r_2SMR:
     needs: [variables,build_docker]
     runs-on: ubuntu-latest
-    container: ${{ needs.variables.tags.env.branch_tag }} 
+    container: ${{ needs.variables.outputs.branch_tag }} 
     steps:
       -
         name: run docker test two-sample-mr
         run: Rscript -e 'library(ggplot2)'
-  test_docker:
-    needs: [variables,build_docker]
-    runs-on: ubuntu-latest
-    steps:
-      - name: get-image
-        id: image
-        run: docker pull ${{needs.variables.tags.env.branch_tag}}
-      - name: tag image
-        run: docker tag ${{needs.variables.tags.env.branch_tag}} test:latest 
-      -
-        name: test0
-        uses: docker://richardslab/template_r_project:latest
-        with:
-          args: conda list
-      -
-        name: test1
-        uses: docker://richardslab/template_r_project:latest
-        with:
-          args: conda info
-      -
-        name: test2
-        uses: docker://richardslab/template_r_project:latest
-        with:
-          entrypoint: /usr/local/bin/entrypoint.sh
-          args: conda info
-      -
-        name: test3
-        uses: docker://richardslab/template_r_project:latest
-        with:
-          args: R -e 'library(dplyr); library(ggplot2);'
-
-
+  
 
 
 

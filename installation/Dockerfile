@@ -2,6 +2,8 @@
 FROM ubuntu:18.04
 WORKDIR /home/
 # System packages 
+ENV BUILDKIT_PROGRESS=plain
+
 RUN apt-get -qq update && apt-get -qq install -y curl 
 
 ENV TZ=America/New_York
