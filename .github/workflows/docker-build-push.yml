@@ -112,7 +112,7 @@ jobs:
       -
         uses: yfarjoun/docker-run-action@main
         with:
-          image: ${{ needs.variables.tags.env.branch_tag }}  
+          image: "richardslab/template_r_project:latest"
           run: conda env list
           shell: ""
   test_conda_info:
@@ -159,7 +159,7 @@ jobs:
     steps:
       - name: get-image
         id: image
-        run: docker pull ${{needs.variables.tags.env.branch_tag}}"
+        run: docker pull ${{needs.variables.tags.env.branch_tag}}
       - name: tag image
         run: docker tag ${{needs.variables.tags.env.branch_tag}} test:latest 
       -
