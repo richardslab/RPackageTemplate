@@ -114,6 +114,7 @@ jobs:
         with:
           image: ${{ needs.variables.tags.env.branch_tag }}  
           run: conda env list
+          shell: ""
   test_conda_info:
     runs-on: ubuntu-latest
     needs: [variables,build_docker]
