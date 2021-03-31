@@ -11,6 +11,16 @@ env:
     dockerhub_repository: template_r_project
     dockerhub_organization: richardslab
 jobs:
+  test-github-run-template-r-project:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run docker action and find env list in template project
+        uses: yfarjoun/docker-run-action@main
+        id: run-conda-env-main
+        with:
+          image: richardslab/template_r_project@sha256:5fdc3c8592f3ee97a55f290379efd74b75ad22363670dd8333b84024e640bbc6
+          run: conda env list;
   variables:
     runs-on: ubuntu-latest
     outputs:
@@ -115,25 +125,29 @@ jobs:
           image: "richardslab/template_r_project:latest"
           run: conda env list
           shell: ""
-  test_conda_info:
-    runs-on: ubuntu-latest
+  test_conda_with_farjoun_action_branch:
     needs: [variables,build_docker]
-    container: ${{ needs.variables.tags.env.branch_tag }} 
+    runs-on: ubuntu-latest
     steps:
-      - 
-        name: hello world
-        run: |
-          echo "first line"
-          echo "second line"
-
-      - name: Show space available
-        run: df -h .
-      - name: show env
-        run: env
-      - name: conda
-        run: conda env list
-      - name: test running in docker
-        run: /usr/local/bin/run.sh
+      -
+        uses: yfarjoun/docker-run-action@main
+        with:
+          image: "${{ needs.variables.tags.env.branch_tag }}"
+          run: conda env list
+          shell: ""
+  test_conda_info_with_farjoun_action:
+    needs: [variables,build_docker]
+    runs-on: ubuntu-latest
+    steps:
+      -
+        uses: yfarjoun/docker-run-action@main
+        with:
+          image: "${{ needs.variables.tags.env.branch_tag }}"
+          run: |
+            echo "first line"
+            echo "second line"
+            conda env list
+          shell: ""
   test_r_png:
     needs: [variables,build_docker]
     runs-on: ubuntu-latest
