@@ -110,7 +110,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -
-        uses: yfarjoun/docker-run-action
+        uses: yfarjoun/docker-run-action@main
         with:
           image: ${{ needs.variables.tags.env.branch_tag }}  
           run: conda env list
