@@ -133,7 +133,8 @@ jobs:
         uses: yfarjoun/docker-run-action@main
         with:
           image: ${{ needs.variables.outputs.branch_tag }}
-          run: conda env list
+          run: |
+            conda env list
           shell: ""
   test_conda_info_with_farjoun_action:
     needs: [variables,build_docker]
@@ -142,7 +143,7 @@ jobs:
       -
         uses: yfarjoun/docker-run-action@main
         with:
-          image: "${{ needs.variables.outputs.branch_tag }}"
+          image: ${{ needs.variables.outputs.branch_tag }}
           run: |
             echo "first line"
             echo "second line"
@@ -158,7 +159,11 @@ jobs:
         run: df -h .
       -
         name: run docker test png
-        run: Rscript -e 'png()' 
+        uses: yfarjoun/docker-run-action@main
+        with:
+          image: ${{ needs.variables.outputs.branch_tag }}
+          run: |
+            Rscript -e 'png()' 
   test_r_2SMR:
     needs: [variables,build_docker]
     runs-on: ubuntu-latest
@@ -166,7 +171,11 @@ jobs:
     steps:
       -
         name: run docker test two-sample-mr
-        run: Rscript -e 'library(ggplot2)'
+        uses: yfarjoun/docker-run-action@main
+        with:
+          image: ${{ needs.variables.outputs.branch_tag }}
+          run: | 
+            Rscript -e 'library(ggplot2); library(dplyr)'
   
 
 
