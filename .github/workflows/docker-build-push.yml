@@ -120,7 +120,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -
-        uses: yfarjoun/docker-run-action@main
+        uses: addnab/docker-run-action@v3
         with:
           image: richardslab/template_r_project:latest
           run: conda env list
@@ -141,7 +141,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -
-        uses: yfarjoun/docker-run-action@main
+        uses: addnab/docker-run-action@v3
         with:
           image: ${{ needs.variables.outputs.branch_tag }}
           run: |
