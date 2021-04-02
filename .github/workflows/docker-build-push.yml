@@ -124,7 +124,6 @@ jobs:
         with:
           image: richardslab/template_r_project:latest
           run: conda env list
-          shell: ""
   test_conda_with_farjoun_action_branch:
     needs: [variables,build_docker]
     runs-on: ubuntu-latest
@@ -148,7 +147,6 @@ jobs:
             echo "first line"
             echo "second line"
             conda env list
-          shell: ""
   test_r_png:
     needs: [variables,build_docker]
     runs-on: ubuntu-latest
