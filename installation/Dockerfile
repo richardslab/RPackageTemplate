@@ -36,7 +36,7 @@ RUN ./create_env.sh
 COPY Dockerfile /app/
 COPY entrypoint.sh run.sh /usr/local/bin/
 
-ENTRYPOINT ["conda", "run", "-n", "Template", "--no-capture-output","/bin/bash"]
+ENTRYPOINT ["conda", "run", "-n", "Template", "--no-capture-output", "bash"]
 
 CMD ["echo", "need to provide a command..."]
 
