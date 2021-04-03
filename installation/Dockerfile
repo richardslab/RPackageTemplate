@@ -20,21 +20,11 @@ RUN conda update -y conda
 
 WORKDIR /app
 
-# Make RUN commands use `bash --login`:
-# SHELL ["/bin/bash", "--login", "-c"]
-
 COPY create_env.sh environment.yml /app/
 RUN ./create_env.sh
 
-# RUN conda init bash
-# RUN echo "conda activate Template" >> ~/.bashrc
-
-# RUN conda init
-# RUN conda env export -n Template > /app/linux_env.yml
-
 
 COPY Dockerfile /app/
-COPY entrypoint.sh run.sh /usr/local/bin/
 
 ENTRYPOINT ["conda", "run", "-n", "Template", "--no-capture-output", "bash", "-c"]
 

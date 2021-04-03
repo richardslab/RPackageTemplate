@@ -15,8 +15,6 @@ conda deactivate || echo "no active environment"
 conda env remove -n ${ENV} || echo "couldn't remove environment ${ENV}"
 conda create -y -n ${ENV}  || echo "it seem that environment ${ENV} is already present"
 
-#set +eu
-mamba env update --file "$BASEDIR"/environment.yml 
-#set -eu
+mamba env -q update --file "$BASEDIR"/environment.yml 
 
 echo CREATED the environment ${ENV}
