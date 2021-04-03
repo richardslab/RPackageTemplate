@@ -145,7 +145,6 @@ jobs:
           shell: 
           run: |
             Rscript -e 'png()' 
-          shell:
   test_r_2SMR:
     needs: [variables,build_docker]
     runs-on: ubuntu-latest
