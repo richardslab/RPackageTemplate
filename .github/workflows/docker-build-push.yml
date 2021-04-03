@@ -114,6 +114,7 @@ jobs:
         with:
           image: ${{ needs.variables.outputs.branch_tag }}
           shell: 
+          precommand_prefix:
           run: |
             conda env list
   test_conda_info_with_farjoun_action:
@@ -125,6 +126,7 @@ jobs:
         with:
           image: ${{ needs.variables.outputs.branch_tag }}
           shell: 
+          precommand_prefix:
           run: |
             echo "first line"
             echo "second line"
@@ -143,6 +145,7 @@ jobs:
         with:
           image: ${{ needs.variables.outputs.branch_tag }}
           shell: 
+          precommand_prefix:  
           run: |
             Rscript -e 'png()' 
   test_r_2SMR:
@@ -159,6 +162,10 @@ jobs:
           run: |
             Rscript -e 'library(ggplot2); library(dplyr)'
           shell:
+          precommand_prefix:  
+           
+            
+          
   
 
 
