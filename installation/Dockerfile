@@ -28,5 +28,5 @@ COPY Dockerfile /app/
 
 ENTRYPOINT ["conda", "run", "-n", "Template", "--no-capture-output", "bash", "-c"]
 
-CMD ["echo", "need to provide a command..."]
+CMD ["bash"]
 
