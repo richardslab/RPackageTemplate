@@ -26,7 +26,7 @@ RUN ./create_env.sh
 
 COPY Dockerfile /app/
 
-ENTRYPOINT ["conda", "run", "-n", "Template", "--no-capture-output", "bash", "-c"]
+ENTRYPOINT ["conda", "run", "-n", "Template", "--no-capture-output"]
 
 CMD ["bash"]
 
