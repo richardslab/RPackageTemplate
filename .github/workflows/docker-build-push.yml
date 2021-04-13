@@ -113,8 +113,7 @@ jobs:
         uses: yfarjoun/docker-run-action@main
         with:
           image: ${{ needs.variables.outputs.branch_tag }}
-          shell: 
-          precommand_prefix:
+          shell: bash
           run: |
             conda env list
   test_conda_info_with_farjoun_action:
@@ -125,8 +124,7 @@ jobs:
         uses: yfarjoun/docker-run-action@main
         with:
           image: ${{ needs.variables.outputs.branch_tag }}
-          shell: 
-          precommand_prefix:
+          shell: bash
           run: |
             echo "first line"
             echo "second line"
@@ -144,8 +142,7 @@ jobs:
         uses: yfarjoun/docker-run-action@main
         with:
           image: ${{ needs.variables.outputs.branch_tag }}
-          shell: 
-          precommand_prefix:  
+          shell: bash
           run: |
             Rscript -e 'png()' 
   test_r_2SMR:
@@ -161,11 +158,10 @@ jobs:
           image: ${{ needs.variables.outputs.branch_tag }}
           run: |
             Rscript -e 'library(ggplot2); library(dplyr)'
-          shell:
-          precommand_prefix:  
+          shell: bash
            
             
-          
+
   
 
 
